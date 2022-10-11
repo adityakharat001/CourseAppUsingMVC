@@ -1,0 +1,56 @@
+﻿@model HackathonWithMVC.Models.User
+
+@{
+    ViewData["Title"] = "LogIn";
+}
+
+
+
+@{
+    if (TempData["UserBlockInfo"] != null)
+    {
+
+        <div class="alert alert-danger" role="alert">
+            @TempData["UserBlockInfo"]
+        </div>
+    }
+    if (TempData["LogoutAlert"] != null)
+    {
+
+        <div class="alert alert-danger" role="alert">
+            @TempData["LogoutAlert"]
+        </div>
+    }
+}
+
+<div class="login-container text-center">
+    <div class="row">
+        <div class="col-md-5 login">
+            <h1 class="login-title">Log In</h1>
+            <form asp-action="LogIn">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <input asp-for="UserName" placeholder="Enter Username" class="form-control text-center" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <input asp-for="Password" placeholder="Enter Password" class="form-control text-center" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group login-btns">
+                    <input type="submit" value="Sign In" class="btn btn-primary" />
+                    <a asp-action="RegisterUser" class="btn btn-primary">Register</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

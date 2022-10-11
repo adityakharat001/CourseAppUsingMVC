@@ -1,0 +1,86 @@
+﻿@model IEnumerable<HackathonWithMVC.Models.Course>
+
+@{
+    ViewData["Title"] = "GetAllCoursesForAdmin";
+    Layout = "~/Views/Shared/_NavAdmin.cshtml";
+}
+
+
+<h1 class="text-center">All Courses</h1>
+<hr />
+@{
+    if (TempData["AddCourseInfo"] != null)
+    {
+
+        <div class="alert alert-primary" role="alert">
+            @TempData["AddCourseInfo"]
+        </div>
+    }
+    TempData["AddCourseInfo"] = null;
+
+    if (TempData["CourseDelInfo"] != null)
+    {
+
+        <div class="alert alert-danger" role="alert">
+            @TempData["CourseDelInfo"]
+        </div>
+    }
+    TempData["CourseDelInfo"] = null;
+}
+
+<p>
+    <a class="btn btn-sm btn-primary" asp-action="AddCourseForAdmin">Add New Course</a>
+</p>
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="align-middle">
+                <td>
+                    <img src="@item.ImgPath" style="width: 150px">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    <a class="btn m-1 btn-sm btn-primary" asp-action="EditCourseForAdmin" asp-route-id="@item.Id">Edit</a>
+                    <br/>
+                    <a class="btn m-1 btn-sm btn-primary" asp-action="DeleteCourse" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

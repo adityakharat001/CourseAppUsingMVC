@@ -1,0 +1,70 @@
+﻿@model HackathonWithMVC.Models.Course
+
+@{
+    ViewData["Title"] = "EditCourseForAdmin";
+    Layout = "~/Views/Shared/_NavAdmin.cshtml";
+}
+
+
+<h1 class="text-center">Edit Course</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4 editCourse text-center">
+        <form asp-action="EditCourseForAdmin" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="CourseName" class="control-label"></label>
+                <input asp-for="CourseName" class="form-control text-center" />
+                <span asp-validation-for="CourseName" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author" class="form-control text-center" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <select asp-for="Category" class="form-control text-center">
+                    @foreach (string item in ViewBag.options)
+                    {
+                        <option value=@item>@item</option>
+                    }
+                </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="ImgPath" class="control-label"></label>
+                <input asp-for="ImgPath" class="form-control text-center" />
+                <span asp-validation-for="ImgPath" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control text-center" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label"></label>
+                <input asp-for="Rating" class="form-control text-center" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Make Changes" class="btn btn-primary" />
+                <a class="btn btn-primary" asp-action="GetAllCoursesForAdmin">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

@@ -1,0 +1,73 @@
+﻿@model HackathonWithMVC.Models.Course
+
+@{
+    ViewData["Title"] = "AddCourseForAdmin";
+    Layout = "~/Views/Shared/_NavAdmin.cshtml";
+}
+
+
+<h1 class="text-center">Add New Course</h1>
+
+@{
+    if (TempData["AddCourseInfo"] != null)
+    {
+
+        <div class="alert alert-danger" role="alert">
+            @TempData["AddCourseInfo"]
+        </div>
+    }
+    TempData["AddCourseInfo"] = null;
+}
+<hr />
+<div class="row">
+    <div class="col-md-4 addCourse text-center">
+        <form asp-action="AddCourseForAdmin" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="CourseName" placeholder="Coursename" class="form-control text-center" />
+                <span asp-validation-for="CourseName" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input asp-for="Author" placeholder="Author" class="form-control text-center" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <select asp-for="Category" placeholder="Category" class="form-control text-center">
+                    @foreach (string item in ViewBag.options)
+                    {
+                        <option value=@item>@item</option>
+                    }
+                </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input asp-for="ImgPath" placeholder="Image Path" class="form-control text-center" />
+                <span asp-validation-for="ImgPath" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input asp-for="Price" placeholder="Price" class="form-control text-center" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input asp-for="Rating" placeholder="Rating" class="form-control text-center" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Add Course" class="btn btn-primary" />
+                <a class="btn btn-primary" asp-action="GetAllCoursesForAdmin">Back To Course List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

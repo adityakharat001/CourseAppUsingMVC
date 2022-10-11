@@ -1,0 +1,47 @@
+﻿@model HackathonWithMVC.Models.Course
+
+@{
+    ViewData["Title"] = "BuyCourse";
+    Layout = "~/Views/Shared/_NavUser.cshtml";
+}
+
+<h1 class="text-center">Buy Course</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dd class = "col-sm-10">
+            <img src="@Model.ImgPath" style="width: 250px"/>
+        </dd>
+        <dt  class = "col-sm-2"></dt>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CourseName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CourseName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        @{
+            double priceWithGST = (float)(@Model.Price * 0.18) + @Model.Price;
+        }
+    </dl>
+    <hr />
+    <h2>Price: @Model.Price</h2>
+    <h2>Price Payable with GST: @priceWithGST</h2>
+</div>
+<div>
+    <a class="btn btn-sm btn-primary" asp-action="GetAllCourses">Back To Courses</a>
+    <a class="btn btn-sm btn-primary" asp-action="BuyBill" asp-route-id="@Model.Id">Proceed To Pay</a>
+    
+</div>

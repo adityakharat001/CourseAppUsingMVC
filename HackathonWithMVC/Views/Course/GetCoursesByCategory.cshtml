@@ -1,0 +1,81 @@
+﻿@model IEnumerable<HackathonWithMVC.Models.Course>
+
+@{
+    ViewData["Title"] = "GetCoursesByCategory";
+    Layout = "~/Views/Shared/_NavUser.cshtml";
+}
+
+<h1 class="text-center">Courses</h1>
+@{
+    if (TempData["CourseAddInfo"] != null)
+    {
+
+        <div class="alert alert-danger" role="alert">
+            @TempData["CourseAddInfo"]
+        </div>
+    }TempData["CourseAddInfo"] = null;
+}
+
+<hr />
+<h2 class="text-center">Select Courses By Category:</h2>
+
+<p class="text-center">
+    <a class="btn btn-sm btn-primary" asp-action="GetCoursesByCategory" asp-route-id="1">Web Development</a>
+    <a class="btn btn-sm btn-primary"  asp-action="GetCoursesByCategory" asp-route-id="2">Investing and Trading</a>
+    <a class="btn btn-sm btn-primary"  asp-action="GetCoursesByCategory" asp-route-id="3">3D and Animation</a>
+    <a class="btn btn-sm btn-primary"  asp-action="GetCoursesByCategory" asp-route-id="4">Fitness</a>
+    <a class="btn btn-sm btn-primary"  asp-action="GetCoursesByCategory" asp-route-id="5">Musical Instruments</a>
+</p>
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="align-middle">
+                <td>
+                    <img src="@item.ImgPath" style="width: 150px">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    <a class="btn m-1 btn-success btn-sm" asp-action="AddToCart" asp-route-id="@item.Id">Add To Cart</a> <br>
+                    <a class="btn m-1 btn-primary text-light btn-sm" asp-action="CourseDetails" asp-route-id="@item.Id">Details</a> <br> 
+                    <a class="btn m-1 btn-success btn-sm" asp-action="BuyCourse" asp-route-id="@item.Id">Buy Course</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

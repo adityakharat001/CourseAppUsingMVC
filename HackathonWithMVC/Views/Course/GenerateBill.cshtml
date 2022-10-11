@@ -1,0 +1,72 @@
+﻿@model IEnumerable<HackathonWithMVC.Models.Cart>
+
+@{
+    ViewData["Title"] = "GenerateBill";
+    Layout = "~/Views/Shared/_NavUser.cshtml";
+    float total = 0;
+    int count = 1;
+
+}
+
+<h1 class="text-center">Your Bill</h1>
+<hr />
+@foreach (var item in Model)
+{
+    total += @item.Price;
+}
+<h2>Price Payable with GST: Rs. @(total * 0.18 + total)</h2>
+<h3>Date: @DateTime.Now</h3>
+<h3>For @TempData["Username"]</h3>
+@{
+    TempData.Keep("Username");
+}
+
+<p>
+    <a class="btn btn-primary btn-sm" asp-action="ShowCart">Back To Cart</a>
+    <a class="btn btn-primary btn-sm" asp-action="PayBill" asp-controller="Course">Proceed To Pay</a>
+</p>
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="align-middle">
+                <td>@count</td>
+                <td>
+                    <img src="@item.ImgPath" style="width: 150px">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-action="CourseDetails" asp-route-id="@item.CourseId">Details</a>
+                </td>
+            </tr>
+            count++;
+
+        }
+    </tbody>
+    <tfoot>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Rs. @total</td>
+    <td></td>
+    </tfoot>
+</table>
+

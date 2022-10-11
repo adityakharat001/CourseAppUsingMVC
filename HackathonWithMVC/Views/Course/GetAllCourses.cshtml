@@ -1,0 +1,111 @@
+﻿@model IEnumerable<HackathonWithMVC.Models.Course>
+
+@{
+    ViewData["Title"] = "GetAllCourses";
+    Layout = "~/Views/Shared/_NavUser.cshtml";
+}
+
+<h1 class="text-center">Courses</h1>
+@{
+    if (TempData["CourseAddInfo"] != null)
+    {
+
+        <div class="alert alert-success" role="alert">
+            @TempData["CourseAddInfo"]
+        </div>
+    }else if (TempData["CourseAddAlert"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["CourseAddAlert"]
+        </div>
+    }
+
+    if(TempData["CartEmptyAlert"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["CartEmptyAlert"]
+        </div>
+    }
+
+    if(TempData["CourseBilledAlert"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["CourseBilledAlert"]
+        </div>
+    }
+    
+    if(TempData["CourseBuyAlert"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["CourseBuyAlert"]
+        </div>
+    }
+    
+    if(TempData["OrdersAlert"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["OrdersAlert"]
+        </div>
+    }
+}
+<hr />
+<h2>Welcome @TempData["Username"]</h2>
+@{
+    TempData.Keep("Username");
+}
+<p>
+    <a class="btn btn-primary" asp-action="GetCoursesByCategory">Courses By Category</a>
+</p>
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="align-middle">
+                <td>
+                    <img src="@item.ImgPath" style="width: 150px">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    <a class="btn m-1 btn-success btn-sm" asp-action="AddToCart" asp-route-id="@item.Id">Add To Cart</a> <br>
+                    <a class="btn m-1 btn-primary text-light btn-sm" asp-action="CourseDetails" asp-route-id="@item.Id">Details</a> <br> 
+                    <a class="btn m-1 btn-success btn-sm" asp-action="BuyCourse" asp-route-id="@item.Id">Buy Course</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
